@@ -4,6 +4,20 @@ public class Script_Player : MonoBehaviour
 {
     public float speed = 5f;
     private CharacterController controller;
+    private Movimento movimentoControls;
+    private void Awake()
+    {
+        movimentoControls = new Movimento();
+    }
+    private void OnEnable()
+    {
+        movimentoControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        movimentoControls.Disable();
+    }
 
     private void Start()
     {
@@ -12,11 +26,13 @@ public class Script_Player : MonoBehaviour
 
     private void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+
+        Vector2 controlRead = movimentoControls.Player.Andar.ReadValue<Vector2>();
+        Debug.Log(controlRead);
+        float h = controlRead.x;
+        float v = controlRead.y;
 
         Vector3 move = new Vector3(h, 0, v);
-
         move = Quaternion.Euler(0, 45, 0) * move;
         controller.Move(move * speed * Time.deltaTime);
     }
