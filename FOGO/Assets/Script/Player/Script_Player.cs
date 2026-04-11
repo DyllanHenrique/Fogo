@@ -28,7 +28,6 @@ public class Script_Player : MonoBehaviour
     {
 
         Vector2 controlRead = movimentoControls.Player.Andar.ReadValue<Vector2>();
-        Debug.Log(controlRead);
         float h = controlRead.x;
         float v = controlRead.y;
 
