@@ -3,6 +3,7 @@ using UnityEngine;
 public class Script_Player : MonoBehaviour
 {
     public float speed = 5f;
+    public Vector3 movRef;
     private CharacterController controller;
     private Movimento movimentoControls;
     private void Awake()
@@ -33,6 +34,7 @@ public class Script_Player : MonoBehaviour
 
         Vector3 move = new Vector3(h, 0, v);
         move = Quaternion.Euler(0, 45, 0) * move;
+        movRef = move * speed * Time.deltaTime * 10;
         controller.Move(move * speed * Time.deltaTime);
     }
 }
