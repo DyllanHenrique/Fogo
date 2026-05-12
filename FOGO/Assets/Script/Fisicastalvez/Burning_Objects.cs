@@ -1,59 +1,56 @@
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Burning_Objects : MonoBehaviour
 {
-    [Header("Material")]
-    public Renderer meshRenderer;
+    public Transform m_objectToTrack = null;
 
-    Material mat;
+    public Material m_materialRef = null;
+    public Renderer m_renderer = null;
 
-    [Header("Burn Settings")]
-    public float burnSpeed = 2f;
-    public float maxRadius = 5f;
-
-    float currentRadius = 0f;
-
-    bool burning = false;
-
-    void Start()
+    public Renderer Renderer
     {
-        mat = meshRenderer.material;
-
-        mat.SetFloat("_BurnRadius", 0);
-    }
-
-    void Update()
-    {
-        if (!burning)
-            return;
-
-        currentRadius += Time.deltaTime * burnSpeed;
-
-        mat.SetFloat("_BurnRadius", currentRadius);
-
-        if (currentRadius >= maxRadius)
+        get
         {
-            Destroy(gameObject);
+            if (m_renderer == null)
+                m_renderer = GetComponent<Renderer>();
+
+            return m_renderer;
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public Material MaterialRef
     {
-        if (burning)
-            return;
-
-        if (other.CompareTag("Player"))
+        get
         {
-            burning = true;
+            if (m_materialRef  == null)
+                m_materialRef = Renderer.material;
 
-            Vector3 hitPoint =
-                other.ClosestPoint(transform.position);
-
-            mat.SetVector("_BurnPosition", hitPoint);
-
-            currentRadius = 0;
-
-            mat.SetFloat("_BurnRadius", currentRadius);
+            return m_materialRef;
         }
+    }
+
+    private void Awake()
+    {
+       m_renderer = this.GetComponent<Renderer>();
+        m_materialRef = m_renderer.material;
+
+    }
+
+    private void Update()
+    {
+        if(m_materialRef != null)
+        {
+            MaterialRef.SetVector("_BurnPosition", m_objectToTrack.position);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        m_renderer = null;
+        if(m_materialRef != null)
+            Destroy(m_materialRef);
+
+        m_materialRef =null;
     }
 }
