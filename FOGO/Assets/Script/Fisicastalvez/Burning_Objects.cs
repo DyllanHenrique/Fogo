@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -7,6 +8,10 @@ public class Burning_Objects : MonoBehaviour
 
     public Material m_materialRef = null;
     public Renderer m_renderer = null;
+    public float valorBurn;
+    private Vector3 objPos;
+    private bool Burning = false;
+
 
     public Renderer Renderer
     {
@@ -36,12 +41,13 @@ public class Burning_Objects : MonoBehaviour
         m_materialRef = m_renderer.material;
 
     }
-
     private void Update()
     {
-        if(m_materialRef != null)
+        float distance = (m_objectToTrack.position - this.transform.position).magnitude;
+        if (distance <= 1.5 && !Burning)
         {
-            MaterialRef.SetVector("_BurnPosition", m_objectToTrack.position);
+            Burning = true;
+            StartedBurn(m_objectToTrack.position);
         }
     }
 
@@ -49,8 +55,25 @@ public class Burning_Objects : MonoBehaviour
     {
         m_renderer = null;
         if(m_materialRef != null)
-            Destroy(m_materialRef);
+            DestroyImmediate(m_materialRef);
 
-        m_materialRef =null;
+        m_materialRef = null;
+    }
+
+    public void StartedBurn(Vector3 posBurn) 
+    {
+        MaterialRef.SetVector("_BurnPosition", m_objectToTrack.position);
+        StartCoroutine(Burn());
+    }
+    IEnumerator Burn() 
+    {
+        while (MaterialRef.GetFloat("_BurnDistance") < 10f) 
+        {
+            float RefValor = MaterialRef.GetFloat("_BurnDistance");
+            RefValor += 0.5f;
+            MaterialRef.SetFloat("_BurnDistance", RefValor);
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
