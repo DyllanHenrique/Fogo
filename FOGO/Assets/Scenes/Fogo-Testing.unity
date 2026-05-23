@@ -756,7 +756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f29fe09462b524abc7211ffc825b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Teste_Queimar
-  Burn: 0
 --- !u!54 &84400584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1567,7 +1566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f29fe09462b524abc7211ffc825b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Teste_Queimar
-  Burn: 0
 --- !u!54 &1332716284
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3128,7 +3126,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3655,7 +3653,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 1
+    inWorldSpace: 0
   InheritVelocityModule:
     enabled: 0
     m_Mode: 0
@@ -6873,7 +6871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f29fe09462b524abc7211ffc825b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Teste_Queimar
-  Burn: 0
 --- !u!54 &1632722206
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8537,7 +8534,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -8594,7 +8591,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1.2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
