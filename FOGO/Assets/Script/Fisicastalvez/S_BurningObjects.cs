@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class S_BurningObjects : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class S_BurningObjects : MonoBehaviour
     public float triggerDistance = 1.2f;
     public float burnSpeed = 0.5f;
     public float maxBurnDistance = 10f;
-    public float burnTick = 0.1f;
+    public float burnTime = 3f;
 
     private Material mat;
     private bool burning = false;
@@ -46,8 +47,22 @@ public class S_BurningObjects : MonoBehaviour
 
         mat.SetVector("_BurnPosition", objectToTrack.position);
 
-        StartCoroutine(Burn());
+        Burnear();
+        //StartCoroutine(Burn());
     }
+    void Burnear() 
+    {
+        DOTween.To(
+            () => mat.GetFloat("_BurnDistance"),
+            x => mat.SetFloat("_BurnDistance", x),
+            maxBurnDistance,
+            burnTime
+        ).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+        });
+    }
+
 
     IEnumerator Burn()
     {
@@ -59,7 +74,7 @@ public class S_BurningObjects : MonoBehaviour
 
             mat.SetFloat("_BurnDistance", value);
 
-            yield return new WaitForSeconds(burnTick);
+            yield return new WaitForSeconds(burnTime);
         }
 
         yield return new WaitForSeconds(0.2f);
@@ -76,4 +91,5 @@ public class S_BurningObjects : MonoBehaviour
 
         burning = false;
     }
+
 }
