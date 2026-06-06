@@ -48,7 +48,6 @@ public class S_BurningObjects : MonoBehaviour
         mat.SetVector("_BurnPosition", objectToTrack.position);
 
         Burnear();
-        //StartCoroutine(Burn());
     }
     void Burnear() 
     {
