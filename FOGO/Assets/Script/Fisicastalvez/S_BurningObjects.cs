@@ -63,25 +63,6 @@ public class S_BurningObjects : MonoBehaviour
         });
     }
 
-
-    IEnumerator Burn()
-    {
-        while (mat.GetFloat("_BurnDistance") < maxBurnDistance)
-        {
-            float value = mat.GetFloat("_BurnDistance");
-
-            value += burnSpeed;
-
-            mat.SetFloat("_BurnDistance", value);
-
-            yield return new WaitForSeconds(burnTime);
-        }
-
-        yield return new WaitForSeconds(0.2f);
-
-        gameObject.SetActive(false);
-    }
-
     private void OnDisable()
     {
         if (mat != null)
